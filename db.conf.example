@@ -1,0 +1,8 @@
+# indents are important
+ds='
+        host: localhost
+        user: postgres
+        port: 5432
+        type: postgis
+        dbname: gis
+'
