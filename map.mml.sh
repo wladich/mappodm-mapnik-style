@@ -1,8 +1,10 @@
 #!/bin/bash
 
 BASE=`dirname $0`
+db_conf=$1
+if [ -z "$db_conf" ]; then db_conf=$BASE/db.conf; fi
+. "$db_conf"
 
-. $BASE/db.conf
 
 cat << EOF | python -c "import yaml; import json; import sys; print json.dumps(yaml.load(sys.stdin.read()), indent=4)" > $BASE/map.mml
 
