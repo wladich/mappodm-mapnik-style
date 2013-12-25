@@ -17,6 +17,7 @@ Stylesheet:
     - rivers.mss
     - pois.mss
     - swamps.mss
+    - labels.mss
   
 Layer:
 ############### Vegetation ######################
@@ -212,6 +213,16 @@ Layer:
     name: poi
     Datasource: $ds
         table: "planet_osm_point"
+
+################### Labels ########################
+-
+    name: cottage_labels
+    Datasource: $ds
+        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='cottage') AS t"
+-
+    name: restricted_labels
+    Datasource: $ds
+        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='restricted') AS t"
 
 
 EOF
