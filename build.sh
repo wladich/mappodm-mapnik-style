@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 BASE=`dirname $0`
-$BASE/map.mml.sh
-carto $BASE/map.mml.sh > $BASE/mappodm.xml
+$BASE/map.mml.sh $1
+carto $BASE/map.mml > $BASE/mappodm.xml
