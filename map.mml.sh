@@ -112,10 +112,6 @@ Layer:
         table: "(SELECT * FROM planet_osm_polygon WHERE swamp IS NOT NULL) AS t"
 ################# Roads #######################
 -   
-    name: railway
-    Datasource: $ds 
-        table: "(SELECT * FROM planet_osm_line WHERE road='railway') AS t"
--   
     name: gasline
     Datasource: $ds 
         table: "(SELECT * FROM planet_osm_line WHERE road='gasline') AS t"
@@ -195,6 +191,10 @@ Layer:
     name: dirt-road-drive
     Datasource: $ds 
         table: "(SELECT * FROM planet_osm_line WHERE road='dirt') AS t"
+-   
+    name: railway
+    Datasource: $ds 
+        table: "(SELECT * FROM planet_osm_line WHERE road='railway') AS t"
 
 
 ################# Water bodies ###########################
