@@ -1,70 +1,54 @@
 .landcover{
-[zoom>=13], [zoom=12][way_area>100000],[zoom=11][way_area>400000],[zoom=10][way_area>1600000],[zoom<=9][way_area>6400000]{
-#water {
-     
-        polygon-fill: #0ff;
-        ::casing {
-            line-color: #5066ff;
-            line-width: 0.7mm;
+    [zoom>=13], [zoom=12][way_area>100000],[zoom=11][way_area>400000],[zoom=10][way_area>1600000],[zoom<=9][way_area>6400000]{
+        #water {
+            polygon-fill: #0ff;
+            ::casing {
+                line-color: #5066ff;
+                line-width: 0.7mm;
+            }
         }
-    
-}
 
-#forest{
-    polygon-fill: #99eebb;
-}
+        #forest{
+            polygon-fill: #99eebb;
+        }
 
-#sparse{
-    polygon-fill: #ccffaa;
-    
-}
-#felling {
-    polygon-fill: #ffffbb;
-}
+        #sparse{
+            polygon-fill: #ccffaa;
+        }
 
-#felling_overgrown {
-    polygon-fill: #aaccaa;
-}
+        #felling {
+            polygon-fill: #ffffbb;
+        }
 
-#urban{
-    polygon-fill: #a75858;
-}
+        #felling_overgrown {
+            polygon-fill: #aaccaa;
+        }
 
-#rural{
-    polygon-fill: #ff7f7f;
-    
-}
+        #urban{
+            polygon-fill: #a75858;
+        }
 
-#cottage{
-    polygon-fill: #557f55;
-/*    
-    text-name: [name];
-    text-face-name: "Arial Regular";
-    text-size: 5mm;
-    text-placement-type: simple;
-    text-placements: "N,E,S,W,NE,SE,NW,SW";
-*/    
-}
+        #rural{
+            polygon-fill: #ff7f7f;
+        }
 
-#restricted{
-    polygon-fill: #b1b1b1;
-/*
-    text-name: [name];
-    text-face-name: "Arial Regular";
-    text-size: 5mm;
-*/
-}
+        #cottage{
+            polygon-fill: #557f55;
+        }
 
-#cemetry{
-    polygon-fill: #557f55;
-}
+        #restricted{
+            polygon-fill: #b1b1b1;
+        }
+
+        #cemetry{
+            polygon-fill: #557f55;
+        }
 
 
-.builtup {
-    line-color: black;
-    line-width: 0.3mm;
-    line-gamma-method: linear;
-
-}
-}
+        .builtup {
+            line-color: black;
+            line-width: 0.3mm;
+            line-gamma-method: linear;
+        }
+    }
 }
