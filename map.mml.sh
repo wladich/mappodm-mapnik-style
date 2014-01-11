@@ -241,8 +241,8 @@ Layer:
         table: "
 (SELECT p.way, p.name, 
 ST_Azimuth(
-	ST_LineInterpolatePoint(l.way, GREATEST(ST_LineLocatePoint(l.way, p.way) - 0.0001, 0)), 
-	ST_LineInterpolatePoint(l.way, LEAST(ST_LineLocatePoint(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
+	ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
+	ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
 from (SELECT * FROM planet_osm_point WHERE poi='railway_station') as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road='railway') AS l 
 ON ST_Intersects(p.way, l.way)) as t"
@@ -254,8 +254,8 @@ ON ST_Intersects(p.way, l.way)) as t"
         table: "
 (SELECT p.way, p.name, 
 ST_Azimuth(
-	ST_LineInterpolatePoint(l.way, GREATEST(ST_LineLocatePoint(l.way, p.way) - 0.0001, 0)), 
-	ST_LineInterpolatePoint(l.way, LEAST(ST_LineLocatePoint(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
+	ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
+	ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
 from (SELECT * FROM planet_osm_point WHERE poi='pedestrain_tunel') as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road in ('highway', 'major', 'asphalt')) AS l 
 ON ST_Intersects(p.way, l.way)) as t"
