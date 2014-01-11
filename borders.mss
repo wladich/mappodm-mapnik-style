@@ -10,8 +10,10 @@
     }
 }
 
-#forest_contour{
-    
+#forest_contour[zoom>=13]{
+    line-color: #008f00;
+    line-width: 0.7mm;
+    line-dasharray: 0.7mm, 1mm;
 }
 
 
