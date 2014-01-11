@@ -31,6 +31,7 @@
     #bridge-ends {
         point-file: url('images/bridge_automobile_end.svg');
         point-transform: rotate([angle], 0, 0);
+        point-allow-overlap: true;
     }
 }
 
