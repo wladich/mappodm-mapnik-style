@@ -19,6 +19,7 @@ Stylesheet:
     - swamps.mss
     - labels.mss
     - bridges.mss
+    - borders.mss
   
 Layer:
 ############### Vegetation ######################
@@ -197,7 +198,6 @@ Layer:
     Datasource: $ds 
         table: "(SELECT * FROM planet_osm_line WHERE road='railway') AS t"
 
-
 ################# Water bodies ###########################
 -
     name: water
@@ -209,6 +209,16 @@ Layer:
     class: landcover
     Datasource: $ds
         table: "(SELECT (ST_Dump(ST_Union(way))).geom as way FROM planet_osm_polygon WHERE landcover='water') AS t"
+############# Borders ###############
+-
+    name: fences
+    Datasource: $ds 
+        table: "(SELECT * FROM planet_osm_line WHERE border='fence') AS t"
+-
+    name: forest_contour
+    Datasource: $ds 
+        table: "(SELECT * FROM planet_osm_line WHERE border='forest') AS t"
+
 ############# Bridges #######################
 -
     name: bridges
