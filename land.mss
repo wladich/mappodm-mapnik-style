@@ -1,11 +1,11 @@
 .landcover{
     [zoom>=13], [zoom=12][way_area>100000],[zoom=11][way_area>400000],[zoom=10][way_area>1600000],[zoom=9][way_area>6400000]{
         #water {
-            polygon-fill: #0ff;
             ::casing {
                 line-color: #5066ff;
-                line-width: 0.7mm;
+                line-width: 1mm;
             }
+            polygon-fill: #0ff;
         }
 
         #forest{
