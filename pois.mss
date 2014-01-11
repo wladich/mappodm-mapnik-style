@@ -52,18 +52,9 @@
         point-file: url('images/pupyr.png');
         point-allow-overlap: true;
     }
-    [poi="bridge"][zoom >= 13] {
-        point-file: url('images/bridge_pedestrain.svg');
-        point-allow-overlap: true;
-    }
-    [poi="bridge"][drive="yes"][zoom >= 12] {
-        point-file: url('images/bridge_drive.svg');
-        point-allow-overlap: true;
-    }
     [poi="pedestrain_tunel"][zoom >= 13] {
         point-file: url('images/pedestrain_tunel.svg');
         point-allow-overlap: true;
     }
 }
-
 
