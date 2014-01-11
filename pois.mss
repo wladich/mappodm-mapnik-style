@@ -12,11 +12,11 @@
         point-file: url('images/cerkov.png');
         point-allow-overlap: true; 
     }
-//    [poi="store"] {
-//        point-file: url('images/')
-//    }
+    [poi="store"][zoom >= 12] {
+        point-file: url('images/shop.png')
+    }
 
-    [poi="bus_stop"][zoom >= 10] {
+    [poi="bus_stop"][zoom >= 11] {
         point-file: url('images/avt.png');
         point-allow-overlap: true; 
     }
@@ -37,8 +37,8 @@
         point-allow-overlap: true; 
     }
     [poi="spring"][zoom >= 12] {
-        point-file: url('images/');
-        point-allow-overlap: true; 
+        point-file: url('images/spring.svg');
+        point-allow-overlap: true;
     }
     [poi="ruins"][zoom >= 13] {
         point-file: url('images/razv.png');
