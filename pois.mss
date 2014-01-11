@@ -20,10 +20,6 @@
         point-file: url('images/avt.png');
         point-allow-overlap: true; 
     }
-    [poi="railway_station"][zoom >= 10] {
-        point-file: url('images/zd.png');
-        point-allow-overlap: true; 
-    }
     [poi="building"][zoom >= 13] {
         point-file: url('images/dom.png');
         point-allow-overlap: true; 
@@ -52,9 +48,16 @@
         point-file: url('images/pupyr.png');
         point-allow-overlap: true;
     }
-    [poi="pedestrain_tunel"][zoom >= 13] {
+}
+#railway_stations[zoom >= 10] {
+    point-file: url('images/zd.png');
+    point-allow-overlap: true; 
+    point-transform: rotate([angle]+90, 0, 0);
+}
+
+#pedestrain_tunels[zoom >= 12] {
         point-file: url('images/pedestrain_tunel.svg');
         point-allow-overlap: true;
-    }
+        point-transform: rotate([angle], 0, 0);
 }
 
