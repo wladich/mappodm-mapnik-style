@@ -38,10 +38,7 @@
     line-color: @asphalt;
 }
 
-
-[zoom>=12]{
-
-#passability {
+#passability[zoom>=12] {
     line-width: 1.5mm;
     line-join: round;
     [passability="2"] {
@@ -52,8 +49,7 @@
         line-dasharray: 0.7mm, 1.5mm
     }
     [passability="4"] {
-        line-color: #fe7;//#ffd700;
-//        line-dasharray: 1.5mm, 1mm
+        line-color: #fe7;
     }
     [passability="5"] {
         line-color: #fb7;
@@ -61,18 +57,18 @@
 }
 
 
-#dirt-roads {
+#dirt-roads[zoom>=12] {
     line-color: black;
     line-width: 0.4mm;
     line-dasharray: 2mm, 1mm;
 }
 
-#dirt-roads-drive {
+#dirt-roads-drive[zoom>=12] {
     line-color: black;
     line-width: 0.4mm;
 }
 
-#advanced-roads-drive {
+#advanced-roads-drive[zoom>=11] {
     ::casing {
         line-color: black;
         line-width: 1.2mm;
@@ -81,7 +77,7 @@
     line-width: 0.8mm;
 }
 
-#advanced-roads {
+#advanced-roads[zoom>=12] {
     ::casing {
         line-color: @relief;
         line-width: 1.8mm;
@@ -91,32 +87,28 @@
     line-width: 0.8mm;
 }
 
-#cutting {
+#cutting[zoom>=12] {
     line-color: black;
     line-width: 0.2mm;
     line-dasharray: 3mm, 1.5mm;
 }
 
-#abandoned-road {
+#abandoned-road[zoom>=12] {
     line-color: black;
     line-width: 0.2mm;
     line-dasharray: 2mm, 3mm;
 }
-#cutting-wide {
-    line-width: 2mm;
-    line-color: #888888;
-}
-#path {
+#path[zoom>=12] {
     line-color: black;
     line-width: 0.4mm;
     line-dasharray: 1mm, 1mm;
 }
-#trench {
+#trench[zoom>=12] {
     line-color: @relief;
     line-width: 0.7mm;
     line-dasharray: 0.7mm, 0.7mm;
 }
-#wall{
+#wall[zoom>=12]{
     line-color: @relief;
     line-width: 0.7mm;
     ::casing {
@@ -125,12 +117,24 @@
         line-dasharray: 0.5mm, 2mm;
     }
 }
-#gasline, #powerline, #powerline_major{
+#cutting-wide [zoom>=12]{
     line-width: 1.5mm;
+    line-color: #888888;
+    line-opacity: 0.7;    
+}
+
+#powerline[zoom>=12]{
+    line-width: 0.7mm;
     line-color: #888888;
 }
 
+#gasline,  #powerline_major[zoom>=12]{
+    line-width: 1.5mm;
+    line-color: #888888;
+    line-opacity: 0.7;
 }
+
+
 #railway{
     line-color: black;
     line-width: 1mm;
