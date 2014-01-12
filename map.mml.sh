@@ -99,6 +99,17 @@ Layer:
     name: swamp
     Datasource: $ds 
         table: "(SELECT * FROM planet_osm_polygon WHERE swamp IS NOT NULL) AS t"
+
+############# Borders ###############
+-
+    name: fences
+    Datasource: $ds 
+        table: "(SELECT * FROM planet_osm_line WHERE border='fence') AS t"
+-
+    name: forest_contour
+    Datasource: $ds 
+        table: "(SELECT * FROM planet_osm_line WHERE border='forest') AS t"
+
 ################# Roads #######################
 -   
     name: gasline
@@ -194,15 +205,6 @@ Layer:
              (SELECT ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.25/1000*!scale_denominator!), -0.5/1000*!scale_denominator!), 0.25/1000*!scale_denominator!) as way 
              FROM planet_osm_polygon WHERE landcover = 'water' AND way && !bbox! AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
         
-############# Borders ###############
--
-    name: fences
-    Datasource: $ds 
-        table: "(SELECT * FROM planet_osm_line WHERE border='fence') AS t"
--
-    name: forest_contour
-    Datasource: $ds 
-        table: "(SELECT * FROM planet_osm_line WHERE border='forest') AS t"
 
 ############# Bridges #######################
 -
