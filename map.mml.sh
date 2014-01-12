@@ -27,8 +27,6 @@ Layer:
     name: vegetation
     Datasource: $ds
         table: 
-#            (SELECT ST_Simplify(ST_Buffer(ST_Collect(way), 0.2/1000*!scale_denominator!), 0.5/1000*!scale_denominator!)  as way, landcover 
-#             (SELECT landcover, ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(ST_Simplify(way, 0.5/1000*!scale_denominator!)), 0.35/1000*!scale_denominator!), -0.7/1000*!scale_denominator!), 0.5/1000*!scale_denominator!) as way 
              (SELECT landcover, ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.35/1000*!scale_denominator!), -0.7/1000*!scale_denominator!), 0.5/1000*!scale_denominator!) as way 
              FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown') AND way && !bbox! GROUP BY landcover) AS t1
 
@@ -196,11 +194,6 @@ Layer:
              (SELECT ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.25/1000*!scale_denominator!), -0.5/1000*!scale_denominator!), 0.25/1000*!scale_denominator!) as way 
              FROM planet_osm_polygon WHERE landcover = 'water' AND way && !bbox! AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
         
-#-
-#    name: water-border
-#    class: landcover
-#    Datasource: $ds
-#        table: "(SELECT (ST_Dump(ST_Union(way))).geom as way FROM planet_osm_polygon WHERE landcover='water') AS t"
 ############# Borders ###############
 -
     name: fences
