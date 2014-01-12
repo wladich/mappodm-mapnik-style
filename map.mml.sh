@@ -24,25 +24,14 @@ Stylesheet:
 Layer:
 ############### Vegetation ######################
 -
-    name: forest
-    class: landcover
+    name: vegetation
     Datasource: $ds
-        table: "(SELECT * FROM planet_osm_polygon WHERE landcover='forest') AS t"
--
-    name: sparse
-    class: landcover
-    Datasource: $ds
-        table: "(SELECT * FROM planet_osm_polygon WHERE landcover='sparse') AS t"
--
-    name: felling
-    class: landcover
-    Datasource: $ds
-        table: "(SELECT * FROM planet_osm_polygon WHERE landcover='felling') AS t"
--
-    name: felling_overgrown
-    class: landcover
-    Datasource: $ds
-        table: "(SELECT * FROM planet_osm_polygon WHERE landcover='felling_overgrown') AS t"
+        table: 
+#            (SELECT ST_Simplify(ST_Buffer(ST_Collect(way), 0.2/1000*!scale_denominator!), 0.5/1000*!scale_denominator!)  as way, landcover 
+#             (SELECT landcover, ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(ST_Simplify(way, 0.5/1000*!scale_denominator!)), 0.35/1000*!scale_denominator!), -0.7/1000*!scale_denominator!), 0.5/1000*!scale_denominator!) as way 
+             (SELECT landcover, ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.35/1000*!scale_denominator!), -0.7/1000*!scale_denominator!), 0.5/1000*!scale_denominator!) as way 
+             FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown') AND way && !bbox! GROUP BY landcover) AS t1
+
 ################# Relief #########################
 -   
     name: contours
@@ -75,27 +64,27 @@ Layer:
 ################## Built up areas ######################
 -
     name: urban
-    class: builtup landcover
+    class: builtup
     Datasource: $ds
         table: "(SELECT * FROM planet_osm_polygon WHERE landcover='urban') AS t"
 -
     name: rural
-    class: builtup landcover
+    class: builtup
     Datasource: $ds
         table: "(SELECT * FROM planet_osm_polygon WHERE landcover='rural') AS t"
 -
     name: cottage
-    class: builtup landcover
+    class: builtup
     Datasource: $ds
         table: "(SELECT * FROM planet_osm_polygon WHERE landcover='cottage') AS t"
 -
     name: restricted
-    class: builtup landcover
+    class: builtup
     Datasource: $ds
         table: "(SELECT * FROM planet_osm_polygon WHERE landcover='restricted') AS t"
 -
     name: cemetry
-    class: builtup landcover
+    class: builtup
     Datasource: $ds
         table: "(SELECT * FROM planet_osm_polygon WHERE landcover='cemetry') AS t"
 
@@ -203,12 +192,15 @@ Layer:
     name: water
     class: landcover
     Datasource: $ds
-        table: "(SELECT * FROM planet_osm_polygon WHERE landcover='water') AS t"
--
-    name: water-border
-    class: landcover
-    Datasource: $ds
-        table: "(SELECT (ST_Dump(ST_Union(way))).geom as way FROM planet_osm_polygon WHERE landcover='water') AS t"
+        table: 
+             (SELECT ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.25/1000*!scale_denominator!), -0.5/1000*!scale_denominator!), 0.25/1000*!scale_denominator!) as way 
+             FROM planet_osm_polygon WHERE landcover = 'water' AND way && !bbox! AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
+        
+#-
+#    name: water-border
+#    class: landcover
+#    Datasource: $ds
+#        table: "(SELECT (ST_Dump(ST_Union(way))).geom as way FROM planet_osm_polygon WHERE landcover='water') AS t"
 ############# Borders ###############
 -
     name: fences
