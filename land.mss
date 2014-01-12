@@ -10,6 +10,8 @@
 
         #forest{
             polygon-fill: #99eebb;
+            line-color:#99eebb;
+            line-width: 0.5;
         }
 
         #sparse{
