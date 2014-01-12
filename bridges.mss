@@ -25,7 +25,7 @@
 }
 
 
-[bridge="automobile"][zoom>=12] {
+[bridge="automobile"][zoom>=13] {
     #bridges {
         ::casing {
             line-color: black;
