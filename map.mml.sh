@@ -223,11 +223,29 @@ Layer:
 -
     name: bridges
     Datasource: $ds
-        table: "(SELECT way, bridge, ST_Length(ST_MakeLine(ST_StartPoint(way), ST_EndPoint(way))) as length FROM planet_osm_line WHERE bridge IS NOT NULL) AS t"
+        table:
+            (SELECT way, bridge
+                FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000) AS t
 -
     name: bridge-ends
     Datasource: $ds
-        table: "(SELECT ends.end as way, ST_Azimuth(ends.dir, ends.end) / pi() * 180  as angle, bridge FROM (SELECT way, ST_StartPoint(way) as end, bridge, ST_PointN(way, 2) as dir FROM planet_osm_line WHERE bridge IS NOT NULL UNION SELECT way, ST_EndPoint(way) as end, bridge, ST_PointN(way, ST_NPoints(way) - 1) as dir FROM planet_osm_line WHERE bridge IS NOT NULL) AS ends) AS t"
+        table:
+            (SELECT ends.end as way, ST_Azimuth(ends.dir, ends.end) / pi() * 180  as angle, bridge
+                FROM
+                    (SELECT ST_StartPoint(way) as end, bridge, ST_PointN(way, 2) as dir
+                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000
+                     UNION SELECT ST_EndPoint(way) as end, bridge, ST_PointN(way, ST_NPoints(way) - 1) as dir
+                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000
+                    ) AS ends
+            ) AS t
+-
+    name: short_bridges
+    Datasource: $ds
+        table:
+            (SELECT ST_Line_Interpolate_Point(way, 0.5) as way, bridge, ST_Azimuth(ST_StartPoint(way), ST_EndPoint(way)) / pi() * 180  as angle
+                FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! <= 4./1000
+            ) as t
+
 ############# Points #######################
 -
     name: poi
