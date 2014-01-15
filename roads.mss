@@ -1,12 +1,12 @@
 @asphalt: #f88;
 @relief: #bf6100;
 
-#highways {
+#highways[zoom>=6] {
       line-width: 2.3mm;
       line-color: black;
 }
 
-#major-roads {
+#major-roads[zoom>=8] {
       line-width: 2mm;
       line-color: black;
 }
@@ -22,7 +22,7 @@
     }
 }
 
-#highways2 {
+#highways2[zoom>=6] {
     ::fill {
         line-width: 1.8mm;
         line-color: @asphalt;
@@ -33,7 +33,7 @@
     }    
 }
 
-#major-roads2 {
+#major-roads2[zoom>=8] {
     line-width: 1.6mm;
     line-color: @asphalt;
 }
@@ -141,7 +141,7 @@
 }
 
 
-#railway{
+#railway[zoom>=6]{
     line-color: black;
     line-width: 1mm;
 }
