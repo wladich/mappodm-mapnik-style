@@ -55,8 +55,11 @@
         [zoom=12] {
             line-width: 1mm;
         }
-        [zoom<=11] {
+        [zoom>=8][zoom<=11] {
             line-width: 0.5mm;
+        }
+        [zoom>=5][zoom<=7] {
+            line-width: 0.3mm;
         }
 
     }
