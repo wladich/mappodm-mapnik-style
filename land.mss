@@ -19,9 +19,9 @@
         }
 
     }
-    [zoom=10],[zoom=11] {
+    [zoom<=11] {
         polygon-fill: #99eebb;
-        line-width: 0.5;
+        line-width: 0.5mm;
         line-color: #99eebb;
     }
 
