@@ -98,7 +98,11 @@ Layer:
 -   
     name: swamp
     Datasource: $ds 
-        table: "(SELECT * FROM planet_osm_polygon WHERE swamp IS NOT NULL) AS t"
+        table: 
+             (SELECT way, swamp
+             FROM planet_osm_polygon 
+             WHERE swamp IS NOT NULL AND !bbox! && way AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
+
 
 ################# Water bodies ###########################
 -
