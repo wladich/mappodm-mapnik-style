@@ -20,18 +20,18 @@ Stylesheet:
     - labels.mss
     - bridges.mss
     - borders.mss
-  
+
 Layer:
 ############### Vegetation ######################
 -
     name: vegetation
     Datasource: $ds
         table: 
-             (SELECT landcover, ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.35/1000*!scale_denominator!), -0.7/1000*!scale_denominator!), 0.5/1000*!scale_denominator!) as way 
-             FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown') AND way && !bbox! GROUP BY landcover) AS t1
+             (SELECT landcover, way as way 
+             FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown') AND !bbox! && way ) AS t1
 
 ################# Relief #########################
--   
+-
     name: contours
     Datasource: $ds 
         table: "(SELECT way, elevation, coalesce(\"deprecated:contour-width\", 'nul') as width FROM planet_osm_line WHERE relief='contour') AS t"
@@ -106,8 +106,8 @@ Layer:
     class: landcover
     Datasource: $ds
         table: 
-             (SELECT ST_Buffer(ST_Buffer(ST_Buffer(ST_Collect(way), 0.25/1000*!scale_denominator!), -0.5/1000*!scale_denominator!), 0.25/1000*!scale_denominator!) as way 
-             FROM planet_osm_polygon WHERE landcover = 'water' AND way && !bbox! AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
+             (SELECT st_collect(way) as way
+             FROM planet_osm_polygon WHERE landcover = 'water' AND !bbox! && way AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
 
 ############# Borders ###############
 -
@@ -179,7 +179,8 @@ Layer:
 -
     name: major-roads
     Datasource: $ds 
-        table: "(SELECT * FROM planet_osm_line WHERE road='major') AS t"
+        table: 
+            (SELECT * FROM planet_osm_line WHERE road='major') AS t
 -
     name: highways
     Datasource: $ds 
@@ -245,8 +246,8 @@ Layer:
         table: "
 (SELECT p.way, p.name, 
 ST_Azimuth(
-	ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
-	ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
+    ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
+    ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
 from (SELECT * FROM planet_osm_point WHERE poi='railway_station') as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road='railway') AS l 
 ON ST_Intersects(p.way, l.way)) as t"
@@ -258,8 +259,8 @@ ON ST_Intersects(p.way, l.way)) as t"
         table: "
 (SELECT p.way, p.name, 
 ST_Azimuth(
-	ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
-	ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
+    ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
+    ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
 from (SELECT * FROM planet_osm_point WHERE poi='pedestrain_tunel') as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road in ('highway', 'major', 'asphalt')) AS l 
 ON ST_Intersects(p.way, l.way)) as t"

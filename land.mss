@@ -1,7 +1,9 @@
 #vegetation{
-    [zoom>=12]{
+    [zoom>=12] {
         [landcover="forest"]{
             polygon-fill: #99eebb;
+            line-width: 0.5;
+            line-color: #99eebb;
         }
 
         [landcover="sparse"]{
@@ -15,9 +17,12 @@
         [landcover="felling_overgrown"]{
             polygon-fill: #aaccaa;
         }
+
     }
-    [zoom=11] {
-        polygon-fill: #99eebb;    
+    [zoom=10],[zoom=11] {
+        polygon-fill: #99eebb;
+        line-width: 0.5;
+        line-color: #99eebb;
     }
 
 }    
@@ -25,6 +30,7 @@
     ::casing {
         line-color: #5066ff;
         line-width: 1mm;
+        line-join: round;
     }
     polygon-fill: #0ff;
 }
