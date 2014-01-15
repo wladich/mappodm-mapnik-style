@@ -128,7 +128,13 @@
     line-color: #888888;
 }
 
-#gasline,  #powerline_major[zoom>=12]{
+#gasline[zoom>=12]{
+    line-width: 1.5mm;
+    line-color: #888888;
+    line-opacity: 0.7;
+}
+
+#powerline_major[zoom>=12]{
     line-width: 1.5mm;
     line-color: #888888;
     line-opacity: 0.7;
