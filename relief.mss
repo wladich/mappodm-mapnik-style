@@ -17,7 +17,7 @@
         line-width: 0.3mm;        
     }
 }
-#contours-general[zoom<=12][zoom>=10] {
+#contours-general[zoom<=12][zoom>=11] {
     line-color: @relief;
     line-smooth: 0.5;
     line-width: 0.3mm;

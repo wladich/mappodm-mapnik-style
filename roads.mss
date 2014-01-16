@@ -68,7 +68,7 @@
     line-width: 0.4mm;
 }
 
-#advanced-roads-drive[zoom>=11] {
+#advanced-roads-drive[zoom>=12] {
     ::casing {
         line-color: black;
         line-width: 1.2mm;
