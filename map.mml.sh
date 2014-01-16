@@ -28,7 +28,7 @@ Layer:
     Datasource: $ds
         table: 
              (SELECT landcover, way as way 
-             FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown') AND !bbox! && way ) AS t1
+             FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown')) AS t1
 
 ################# Relief #########################
 -
@@ -38,7 +38,7 @@ Layer:
 -   
     name: contours-general
     Datasource: $ds 
-        table: "(SELECT st_simplify(way, 100) as way, elevation FROM planet_osm_line WHERE relief='contour' AND \"deprecated:contour-width\"='major') AS t"
+        table: "(SELECT st_simplify(way, 100) as way, elevation FROM planet_osm_line WHERE relief='contour' AND \"deprecated:contour-width\"='major' AND !bbox! && way) AS t"
 -   
     name: contour-hatches
     Datasource: $ds 
@@ -102,7 +102,6 @@ Layer:
              (SELECT way, swamp
              FROM planet_osm_polygon 
              WHERE swamp IS NOT NULL AND !bbox! && way AND sqrt(way_area) > 1.0*!scale_denominator!/1000.0) AS t1
-
 
 ################# Water bodies ###########################
 -
@@ -224,9 +223,9 @@ Layer:
             (SELECT ends.end as way, ST_Azimuth(ends.dir, ends.end) / pi() * 180  as angle, bridge
                 FROM
                     (SELECT ST_StartPoint(way) as end, bridge, ST_PointN(way, 2) as dir
-                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000
+                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000 AND !bbox! && way
                      UNION SELECT ST_EndPoint(way) as end, bridge, ST_PointN(way, ST_NPoints(way) - 1) as dir
-                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000
+                        FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! > 4./1000 AND !bbox! && way
                     ) AS ends
             ) AS t
 -
@@ -234,7 +233,7 @@ Layer:
     Datasource: $ds
         table:
             (SELECT ST_Line_Interpolate_Point(way, 0.5) as way, bridge, ST_Azimuth(ST_StartPoint(way), ST_EndPoint(way)) / pi() * 180  as angle
-                FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! <= 4./1000
+                FROM planet_osm_line WHERE bridge IS NOT NULL AND ST_Length(way) / !scale_denominator! <= 4./1000 AND !bbox! && way
             ) as t
 
 ############# Points #######################
@@ -252,7 +251,7 @@ Layer:
 ST_Azimuth(
     ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
     ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
-from (SELECT * FROM planet_osm_point WHERE poi='railway_station') as p LEFT JOIN 
+from (SELECT * FROM planet_osm_point WHERE poi='railway_station' AND !bbox! && way) as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road='railway') AS l 
 ON ST_Intersects(p.way, l.way)) as t"
 
@@ -265,7 +264,7 @@ ON ST_Intersects(p.way, l.way)) as t"
 ST_Azimuth(
     ST_Line_Interpolate_Point(l.way, GREATEST(ST_Line_Locate_Point(l.way, p.way) - 0.0001, 0)), 
     ST_Line_Interpolate_Point(l.way, LEAST(ST_Line_Locate_Point(l.way, p.way) + 0.0001, 1))) / pi() * 180 AS angle
-from (SELECT * FROM planet_osm_point WHERE poi='pedestrain_tunel') as p LEFT JOIN 
+from (SELECT * FROM planet_osm_point WHERE poi='pedestrain_tunel' AND !bbox! && way) as p LEFT JOIN 
 (SELECT * FROM planet_osm_line WHERE road in ('highway', 'major', 'asphalt')) AS l 
 ON ST_Intersects(p.way, l.way)) as t"
 
@@ -273,11 +272,11 @@ ON ST_Intersects(p.way, l.way)) as t"
 -
     name: cottage_labels
     Datasource: $ds
-        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='cottage') AS t"
+        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='cottage' AND !bbox! && way) AS t"
 -
     name: restricted_labels
     Datasource: $ds
-        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='restricted') AS t"
+        table: "(SELECT ST_PointOnSurface(way) as way, name FROM planet_osm_polygon WHERE landcover='restricted' AND !bbox! && way) AS t"
 
 
 EOF
