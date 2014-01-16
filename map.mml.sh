@@ -27,7 +27,7 @@ Layer:
     name: vegetation
     Datasource: $ds
         table: 
-             (SELECT landcover, way as way 
+             (SELECT landcover, way
              FROM planet_osm_polygon WHERE landcover in ('forest', 'sparse', 'felling', 'felling_overgrown')) AS t1
 
 ################# Relief #########################
